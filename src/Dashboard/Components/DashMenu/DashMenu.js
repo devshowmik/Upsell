@@ -13,7 +13,7 @@ const DashMenu = () => {
                                 <img src="images/logo.png" alt="" /><span>Focus</span>
                             </a></div>
                             <div className="product">
-                                <li className="label" >Product</li>
+                                <li className="label">Product</li>
                                 <p className='text-white mb-0 d-flex justify-content-between align-items-center'
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapseExample"

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import AddProduct from "../Dashboard/Components/Products/AddProduct/AddProduct";
+import MyProducts from "../Dashboard/Components/Products/MyProducts/MyProducts";
 import Dashboard from "../Layouts/Dashboard";
 import Main from "../Layouts/Main";
 import Home from "../Pages/Home/Home";
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/add-product',
                 element: <AddProduct />
+            },
+            {
+                path: '/dashboard/products',
+                element: <MyProducts />
             }
         ]
     }

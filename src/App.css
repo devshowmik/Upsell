@@ -7,6 +7,10 @@ h6 {
     font-family: 'Nunito Sans', sans-serif;
 }
 
+[data-bs-toggle="collapse"] {
+    cursor: pointer;
+}
+
 .navbar-brand img,
 img.logo {
     filter: brightness(10) !important
