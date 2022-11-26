@@ -7,6 +7,19 @@ h6 {
     font-family: 'Nunito Sans', sans-serif;
 }
 
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
 [data-bs-toggle="collapse"] {
     cursor: pointer;
 }

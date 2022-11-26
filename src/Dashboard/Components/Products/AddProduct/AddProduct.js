@@ -9,7 +9,7 @@ const AddProduct = () => {
         // console.log(data.image[0].name)
         const formData = new FormData();
         formData.append('image', data.image[0]);
-        fetch(`https://api.imgbb.com/1/upload?expiration=600&key=${imageApiKey}`, {
+        fetch(`https://api.imgbb.com/1/upload?key=${imageApiKey}`, {
             method: 'POST',
             body: formData
         })
@@ -69,8 +69,9 @@ const AddProduct = () => {
                     <div className="form-group col-md-4">
                         <label htmlFor="condition">Condition <span className='text-danger'>{errors?.condition?.message}</span></label>
                         <select id="condition" className="form-control" {...register('condition', { required: 'required' })}>
-                            <option >Choose...</option>
-                            <option>...</option>
+                            <option defaultValue='Excellent'>Excellent</option>
+                            <option defaultValue='Good'>Good</option>
+                            <option defaultValue='Fair'>Fair</option>
                         </select>
                     </div>
                     <div className="form-group col-md-4">
@@ -99,16 +100,21 @@ const AddProduct = () => {
                     <div className="form-group col-md-6">
                         <label htmlFor="division">Divisions <span className='text-danger'>{errors?.division?.message}</span></label>
                         <select id="division" className="form-control" {...register('division', { required: 'required' })}>
-                            <option>Choose...</option>
-                            <option>...</option>
+                            <option defaultValue='Barisal'>Barisal Division</option>
+                            <option defaultValue='Chittagong'>Chittagong Division</option>
+                            <option defaultValue='Dhaka'>Dhaka Division</option>
+                            <option defaultValue='Khulna'>Khulna Division</option>
+                            <option defaultValue='Mymensingh'>Mymensingh Division</option>
+                            <option defaultValue='Rajshahi'>Rajshahi Division</option>
+                            <option defaultValue='Rangpur'>Rangpur Division</option>
+                            <option defaultValue='Sylhet'>Sylhet Division</option>
+
                         </select>
                     </div>
                     <div className="form-group col-md-4">
-                        <label htmlFor="inputState">City</label>
-                        <select id="inputState" className="form-control"  {...register('city')}>
-                            <option>Choose...</option>
-                            <option>...</option>
-                        </select>
+                        <label htmlFor="city">City</label>
+                        <input {...register('city')} type="text" className="form-control" id="city" placeholder="Your City" />
+
                     </div>
                     <div className="form-group col-md-2">
                         <label htmlFor="zipCode">Zip</label>

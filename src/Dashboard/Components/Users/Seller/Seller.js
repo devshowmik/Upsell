@@ -4,7 +4,7 @@ const Seller = () => {
     return (
         <>
             <h3 className=' text-muted mt-3 text-capitalize'>all seller</h3>
-            <table class="table text-capitalize">
+            <table className="table text-capitalize">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

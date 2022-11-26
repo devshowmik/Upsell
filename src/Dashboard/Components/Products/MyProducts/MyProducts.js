@@ -1,38 +1,55 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Spinner from '../../../../Components/Global/Spinner/Spinner';
 import thumb from '../../../../images/thumb.jpg';
 
 const MyProducts = () => {
+    const { data: products, isLoading } = useQuery({
+        queryKey: ['MyProducts'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/products`);
+            const data = await res.json();
+            return data;
+        }
+    })
+    const handleDlete = id => {
+        console.log(id)
+    }
+    const handleAdvertisment = id => {
+        console.log(id)
+    }
+    if (isLoading) {
+        return <Spinner />
+    }
     return (
-        <table class="table text-capitalize">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Product Image</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Advertise</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td><img src={thumb} alt="" className='rounded' width='50' /></td>
-                    <td>Asus Probook</td>
-                    <td>$ 620</td>
-                    <td><span className=' btn btn-success'>Advertised</span></td>
-                    <td><span className=' btn btn-warning'>Edit</span> <span className=' btn btn-danger'>Delete</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td><img src={thumb} alt="" className='rounded' width='50' /></td>
-                    <td>Macbook Pro</td>
-                    <td>$ 1220</td>
-                    <td><span className=' btn btn-secondary disabled'>Advertising</span></td>
-                    <td><span className=' btn btn-warning'>Edit</span> <span className=' btn btn-danger'>Delete</span></td>
-                </tr>
-            </tbody>
-        </table>
+        <>
+            <table className="table text-capitalize">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Image</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Advertise</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        products.map((product, i) => <tr key={product._id}>
+                            <th scope="row">{i + 1}</th>
+                            <td><img src={product.thumbImage} alt="" className='rounded' width='50' /></td>
+                            <td>{product.title}</td>
+                            <td>$ {product.price}</td>
+                            <td><span onClick={() => handleAdvertisment(product._id)} className=' btn btn-success'>Advertised</span></td>
+                            <td><Link to={`product/update/${product._id}`} className=' btn btn-warning'>Edit</Link> <span onClick={() => handleDlete(product._id)} className=' btn btn-danger'>Delete</span></td>
+                        </tr>)
+                    }
+
+                </tbody>
+            </table>
+        </>
     );
 };
 
