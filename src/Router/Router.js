@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import MyOrders from "../Dashboard/Components/MyOrders/MyOrders";
 import AddProduct from "../Dashboard/Components/Products/AddProduct/AddProduct";
 import MyProducts from "../Dashboard/Components/Products/MyProducts/MyProducts";
 import AllUsers from "../Dashboard/Components/Users/AllUsers/AllUsers";
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/products',
                 element: <MyProducts />
+            },
+            {
+                path: '/dashboard/my-orders',
+                element: <MyOrders />
             },
             {
                 path: '/dashboard/users',

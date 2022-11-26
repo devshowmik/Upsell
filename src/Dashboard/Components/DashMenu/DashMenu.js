@@ -30,7 +30,7 @@ const DashMenu = () => {
                                     </Link>
                                 </li>
                             </div>
-                            <div className="product">
+                            <div className="users mb-2">
                                 <li className="label">Users</li>
                                 <p className='text-white mb-0 d-flex justify-content-between align-items-center'
                                     data-bs-toggle="collapse"
@@ -51,6 +51,9 @@ const DashMenu = () => {
                                     </Link>
                                 </li>
                             </div>
+                            <li className='mb-0'>
+                                <p> <Link to='/dashboard/my-orders' className='text-white text-decoration-none'>My Orders</Link></p>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -70,7 +73,6 @@ const DashMenu = () => {
                                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
                             </a>
                             <ul className="dropdown-menu text-small" >
-                                <li><a className="dropdown-item" href="/">Settings</a></li>
                                 <li><a className="dropdown-item" href="/">Profile</a></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li><a className="dropdown-item" href="/">Sign out</a></li>
