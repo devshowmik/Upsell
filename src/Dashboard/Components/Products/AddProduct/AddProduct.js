@@ -3,8 +3,8 @@ import React from 'react';
 const AddProduct = () => {
     return (
         <div className='container-fluid'>
-            <h3 className=' text-muted'>Add Your Product</h3>
-            <form>
+            <h3 className=' text-muted mt-3'>Add Your Product</h3>
+            <form className=' text-capitalize'>
                 <div className="row">
                     <div className="form-group col-md-10">
                         <label htmlFor="title">Product Title</label>
@@ -15,6 +15,11 @@ const AddProduct = () => {
                         <input type="number" className="form-control" id="price" placeholder="Product Price" />
                     </div>
                 </div>
+
+                <div className="form-group col-md-12">
+                    <label htmlFor="image">Product image</label>
+                    <input type="file" className="form-control" id="image" accept="image/png, image/jpeg" />
+                </div>
                 <div className="row">
                     <div className="form-group col-md-4">
                         <label htmlFor="condition">Condition</label>
@@ -24,8 +29,12 @@ const AddProduct = () => {
                         </select>
                     </div>
                     <div className="form-group col-md-4">
-                        <label htmlFor="condition">Estimated parches date</label>
-                        <select id="condition" className="form-control">
+                        <label htmlFor="date">Estimated purchase date</label>
+                        <input type="date" className="form-control" id="date" placeholder="Email" />
+                    </div>
+                    <div className="form-group col-md-4">
+                        <label htmlFor="category">Category</label>
+                        <select id="category" className="form-control">
                             <option>Choose...</option>
                             <option>...</option>
                         </select>
@@ -61,15 +70,11 @@ const AddProduct = () => {
                         <input type="text" className="form-control" id="zipCode" />
                     </div>
                 </div>
-                <div className="form-group">
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="gridCheck" />
-                        <label className="form-check-label" htmlFor="gridCheck">
-                            Check me out
-                        </label>
-                    </div>
+                <div className="form-group col-md-12 mb-3">
+                    <label htmlFor="description" className="form-label">Description about your product</label>
+                    <textarea className="form-control" id="description" rows="3" placeholder='Brif Description about your product'></textarea>
                 </div>
-                <button type="submit" className="btn btn-primary">Sign in</button>
+                <button type="submit" className="btn btn-primary">Add Product</button>
             </form>
         </div>
     );

@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaAngleDown } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const DashMenu = () => {
     return (
@@ -6,14 +8,26 @@ const DashMenu = () => {
             <div className="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
                 <div className="nano">
                     <div className="nano-content">
-                        <ul>
+                        <ul className='px-3'>
                             <div className="logo"><a href="index.html">
                                 <img src="images/logo.png" alt="" /><span>Focus</span>
                             </a></div>
                             <div className="product">
-                                <li className="label ms-3">Apps</li>
-                                <li><a href='/' className="sidebar-sub-toggle"><i className="ti-bar-chart-alt"></i> Charts <span
-                                    className="sidebar-collapse-icon ti-angle-down"></span></a>
+                                <li className="label" >Product</li>
+                                <p className='text-white mb-0 d-flex justify-content-between align-items-center'
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseExample"
+                                    aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    Product <span><FaAngleDown /></span>
+                                </p>
+                                <li className='ps-3 collapse' id="collapseExample">
+                                    <Link to='/dashboard/products' className="sidebar-sub-toggle">
+                                        All products
+                                    </Link>
+                                    <Link to='/dashboard/add-product' className="sidebar-sub-toggle">
+                                        Add product
+                                    </Link>
                                 </li>
                             </div>
                         </ul>
