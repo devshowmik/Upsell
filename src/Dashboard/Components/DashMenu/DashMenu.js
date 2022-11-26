@@ -30,6 +30,27 @@ const DashMenu = () => {
                                     </Link>
                                 </li>
                             </div>
+                            <div className="product">
+                                <li className="label">Users</li>
+                                <p className='text-white mb-0 d-flex justify-content-between align-items-center'
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#usercollapse"
+                                    aria-expanded="false"
+                                    aria-controls="usercollapse">
+                                    Users <span><FaAngleDown /></span>
+                                </p>
+                                <li className='ps-3 collapse' id="usercollapse">
+                                    <Link to='/dashboard/users' className="sidebar-sub-toggle">
+                                        All users
+                                    </Link>
+                                    <Link to='/dashboard/users/buyer' className="sidebar-sub-toggle">
+                                        buyers
+                                    </Link>
+                                    <Link to='/dashboard/users/seller' className="sidebar-sub-toggle">
+                                        sellers
+                                    </Link>
+                                </li>
+                            </div>
                         </ul>
                     </div>
                 </div>

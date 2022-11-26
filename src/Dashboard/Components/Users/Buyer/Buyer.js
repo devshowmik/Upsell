@@ -1,10 +1,10 @@
 import React from 'react';
 import thumb from '../../../../images/thumb.jpg';
 
-const AllUsers = () => {
+const Buyer = () => {
     return (
         <>
-            <h3 className=' text-muted mt-3 text-capitalize'>all users</h3>
+            <h3 className=' text-muted mt-3 text-capitalize'>all buyer</h3>
             <table class="table text-capitalize">
                 <thead>
                     <tr>
@@ -31,4 +31,4 @@ const AllUsers = () => {
     );
 };
 
-export default AllUsers;
+export default Buyer;
