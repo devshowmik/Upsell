@@ -22,7 +22,7 @@ const Header = () => {
                         </li>
                     </ul>
                     <div className='d-flex gap-2'>
-                        <button className="btn text-white rounded-1 fw-semibold" type="submit"><i class="bi bi-person-fill"></i> login</button>
+                        <button className="btn text-white rounded-1 fw-semibold" type="submit"><i className="bi bi-person-fill"></i> login</button>
                         <button className="btn btn-warning rounded-1 fw-semibold" type="submit">Add your product</button>
                     </div>
                 </div>
