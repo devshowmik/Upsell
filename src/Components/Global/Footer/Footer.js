@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <div className="footer bg-success text-white">
             <div className="container">
-                <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
+                <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top">
                     <div className="col mb-3">
                         <Link href="/" className="d-flex align-items-center mb-3 link-dark text-decoration-none">
                             <img src={Logo} alt="" width='100' className='logo' />
