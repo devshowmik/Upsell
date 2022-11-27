@@ -47,7 +47,7 @@ img.logo {
     }
 }
 
-.login form {
+.login .form-wrap {
     width: 100%;
     max-width: 350px;
 }
