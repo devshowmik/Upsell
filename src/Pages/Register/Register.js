@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ const Register = () => {
     const imageApiKey = process.env.REACT_APP_image_api_key;
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate()
+    const [agree, setAgree] = useState(false);
     // handle register
     const handleEmailRegister = data => {
         console.log(data)
@@ -28,6 +29,22 @@ const Register = () => {
                             displayName: data.name,
                             photoURL: imageUrl?.data?.url
                         };
+                        const userInfo = {
+                            displayName: data.name,
+                            photoURL: imageUrl?.data?.url,
+                            email: data.email,
+                            userRole: data.buyer ? 'Buyer' : 'Seller'
+                        }
+                        // send user information to data base
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(userInfo)
+                        })
+
+
                         updateUserInfo(update);
                         toast.success('Register Successes');
                         navigate('/dashboard')
@@ -60,13 +77,23 @@ const Register = () => {
                             <p className=' text-danger'>{errors?.password?.message}</p>
                         }
                     </div>
+                    <div class="form-check form-switch">
+                        <input {...register('buyer')} class="form-check-input" type="checkbox" role="switch" id="buyerSwitch" />
+                        <label class="form-check-label" for="buyerSwitch">Register as Buyer</label>
+                    </div>
+                    <div className="form-check">
+                        <input className="form-check-input" type="checkbox" value="" id="trams" onChange={() => setAgree(!agree)} />
+                        <label className="form-check-label" for="trams">
+                            Agree to our <Link to='/trams-condition'>trams and conditions</Link>
+                        </label>
+                    </div>
                     <div className="mb-3">
-                        <input className='btn btn-success form-control rounded-0' type="submit" value="Register" />
+                        <input className='btn btn-success form-control rounded-0' type="submit" value="Register" disabled={!agree} />
                     </div>
                 </form>
                 <div className="mb-3">
                     <p className=' text-muted text-capitalize'>Already Have an Account? <Link to='/login' className=' text-decoration-none' >login</Link> </p>
-                    <input className='btn btn-success form-control rounded-0 text-capitalize' type="submit" value="Login with google" />
+                    <input className='btn btn-success form-control rounded-0 text-capitalize' type="submit" value="Login with google" disabled={!agree} />
                 </div>
             </div>
         </div>

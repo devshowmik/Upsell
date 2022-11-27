@@ -1,14 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Spinner from '../../../../Components/Global/Spinner/Spinner';
+import { AuthProvider } from '../../../../Context/AuthContext/AuthContext';
 
 const MyProducts = () => {
-    const { data: products, isLoading, refetch } = useQuery({
+    const { loginUser, loading } = useContext(AuthProvider);
+    const { data: products = [], refetch } = useQuery({
         queryKey: ['MyProducts'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/products`);
+            const res = await fetch(`http://localhost:5000/products?email=${loginUser.email}`);
             const data = await res.json();
             return data;
         }
@@ -36,8 +38,13 @@ const MyProducts = () => {
             },
             body: JSON.stringify(advertis)
         })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                refetch()
+            })
     }
-    if (isLoading) {
+    if (loading) {
         return <Spinner />
     }
     return (
@@ -60,7 +67,15 @@ const MyProducts = () => {
                             <td><img src={product.thumbImage} alt="" className='rounded' width='50' /></td>
                             <td>{product.title}</td>
                             <td>$ {product.price}</td>
-                            <td><span onClick={() => handleAdvertisment(product._id)} className=' btn btn-success'>Advertised</span></td>
+                            <td>
+                                {
+                                    product.advertis
+                                        ?
+                                        <span className=' btn btn-success disabled'>Adverting</span>
+                                        :
+                                        <span onClick={() => handleAdvertisment(product._id)} className=' btn btn-success'>Advertised</span>
+                                }
+                            </td>
                             <td><Link to={`/dashboard/product/update/${product._id}`} className=' btn btn-warning'>Edit</Link> <span onClick={() => handleDlete(product._id)} className=' btn btn-danger'>Delete</span></td>
                         </tr>)
                     }

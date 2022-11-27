@@ -1,10 +1,22 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import thumb from '../../../../images/thumb.jpg';
+import Spinner from '../../../../Components/Global/Spinner/Spinner';
 
 const Buyer = () => {
+    const { data: users, isLoading } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/users/buyer}`);
+            const data = await res.json();
+            return data;
+        }
+    })
+    if (isLoading) {
+        return <Spinner />
+    }
     return (
         <>
-            <h3 className=' text-muted mt-3 text-capitalize'>all buyer</h3>
+            <h3 className=' text-muted mt-3 text-capitalize'>all users</h3>
             <table className="table text-capitalize">
                 <thead>
                     <tr>
@@ -17,14 +29,23 @@ const Buyer = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td><img src={thumb} alt="" className='rounded' width='50' /></td>
-                        <td>Asus Probook</td>
-                        <td>user</td>
-                        <td><span className=' btn btn-success'>make admin</span></td>
-                        <td><span className=' btn btn-warning'>Edit</span> <span className=' btn btn-danger'>Delete</span></td>
-                    </tr>
+                    {
+
+                        users.map((user, i) => <tr key={user._id}>
+                            <th scope="row">{i + 1}</th>
+                            <td><img src={user?.photoURL} alt="" className='rounded' width='50' /></td>
+                            <td>{user?.displayName}</td>
+                            <td>{user?.userRole}</td>
+                            <td>
+                                {
+                                    user?.userRole !== 'Admin'
+                                    &&
+                                    <span className=' btn btn-success'>make admin</span>
+                                }
+                            </td>
+                            <td><span className=' btn btn-danger'>Delete</span></td>
+                        </tr>)
+                    }
                 </tbody>
             </table>
         </>

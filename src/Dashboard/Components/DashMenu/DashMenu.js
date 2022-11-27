@@ -43,7 +43,7 @@ const DashMenu = () => {
                                     </Link>
                                 </li>
                             </div>
-                            <div className="users mb-2">
+                            {/* <div className="users mb-2">
                                 <li className="label">Users</li>
                                 <p className='text-white mb-0 d-flex justify-content-between align-items-center'
                                     data-bs-toggle="collapse"
@@ -63,7 +63,10 @@ const DashMenu = () => {
                                         sellers
                                     </Link>
                                 </li>
-                            </div>
+                            </div> */}
+                            <li className='mb-3'>
+                                <p> <Link to='/dashboard/users' className='text-white text-decoration-none'>Users</Link></p>
+                            </li>
                             <li className='mb-0'>
                                 <p> <Link to='/dashboard/my-orders' className='text-white text-decoration-none'>My Orders</Link></p>
                             </li>

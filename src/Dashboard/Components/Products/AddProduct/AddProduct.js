@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AuthProvider } from '../../../../Context/AuthContext/AuthContext';
 
 const AddProduct = () => {
+    const { loginUser } = useContext(AuthProvider);
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const imageApiKey = process.env.REACT_APP_image_api_key;
     const handleAddProduct = data => {
@@ -18,13 +22,15 @@ const AddProduct = () => {
                 const productData = {
                     title: data.title,
                     price: data.price,
+                    originalPrice: data.originalPrice,
+                    uploadDate: new Date().toISOString().slice(0, 10),
                     category: data.category,
                     condition: data.condition,
                     date: data.date,
                     image: imageData.data.url,
                     thumbImage: imageData.data.thumb.url,
                     division: data.division,
-                    email: data.email,
+                    email: loginUser.email,
                     mobileNumber: data.mobileNumber,
                     zip: data.zip,
                     city: data.city,
@@ -41,7 +47,8 @@ const AddProduct = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.acknowledged) {
-                            toast.success(`${productData.title} added successfully`)
+                            toast.success(`${productData.title} added successfully`);
+                            navigate('/dashboard/products')
                         }
                     })
             })
@@ -61,9 +68,15 @@ const AddProduct = () => {
                     </div>
                 </div>
 
-                <div className="form-group col-md-12">
-                    <label htmlFor="image">Product image <span className='text-danger'>{errors?.image?.message}</span></label>
-                    <input {...register('image', { required: 'required' })} type="file" className="form-control" id="image" accept="image/png, image/jpeg" />
+                <div className="row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="originalPrice">Original Price <span className='text-danger'>{errors?.image?.message}</span></label>
+                        <input {...register('originalPrice', { required: 'required' })} type="number" className="form-control" id="originalPrice" accept="image/png, image/jpeg" />
+                    </div>
+                    <div className="form-group col-md-8">
+                        <label htmlFor="image">Product image <span className='text-danger'>{errors?.image?.message}</span></label>
+                        <input {...register('image', { required: 'required' })} type="file" className="form-control" id="image" accept="image/png, image/jpeg" />
+                    </div>
                 </div>
                 <div className="row">
                     <div className="form-group col-md-4">
@@ -76,20 +89,22 @@ const AddProduct = () => {
                     </div>
                     <div className="form-group col-md-4">
                         <label htmlFor="date">Estimated purchase date <span className='text-danger'>{errors?.date?.message}</span></label>
-                        <input type="date" className="form-control" id="date" placeholder="Email" {...register('date', { required: 'required' })} />
+                        <input type="date" className="form-control" id="date" placeholder="date" {...register('date', { required: 'required' })} />
                     </div>
                     <div className="form-group col-md-4">
                         <label htmlFor="category">Category <span className='text-danger'>{errors?.category?.message}</span></label>
-                        <select id="category" className="form-control" {...register('category', { required: 'required' })}>
-                            <option>Choose...</option>
-                            <option>...</option>
+                        <select id="category" className="form-control text-capitalize" {...register('category', { required: 'required' })}>
+                            <option defaultValue='laptop'>laptop</option>
+                            <option defaultValue='desktop'>desktop</option>
+                            <option defaultValue='tablet'>tablet</option>
+                            <option defaultValue='accessories'>accessories</option>
                         </select>
                     </div>
                 </div>
                 <div className="row">
                     <div className="form-group col-md-6">
                         <label htmlFor="email">Email</label>
-                        <input type="email" className="form-control" id="email" placeholder="Email" disabled {...register('email')} />
+                        <input type="email" className="form-control" id="email" placeholder="Email" defaultValue={loginUser.email} disabled {...register('email')} />
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="mobileNumber">Mobile Number <span className='text-danger'>{errors?.mobileNumber?.message}</span></label>

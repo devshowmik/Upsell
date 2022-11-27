@@ -10,6 +10,7 @@ import Dashboard from "../Layouts/Dashboard";
 import Main from "../Layouts/Main";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import Products from "../Pages/Products/Products";
 import Register from "../Pages/Register/Register";
 
 export const router = createBrowserRouter([
@@ -28,6 +29,16 @@ export const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register />
+            },
+            {
+                path: '/products',
+                loader: () => fetch('http://localhost:5000/products'),
+                element: <Products />
+            },
+            {
+                path: '/category/:name',
+                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.name}`),
+                element: <Products />
             }
 
         ]
