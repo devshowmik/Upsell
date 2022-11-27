@@ -35,3 +35,19 @@ img.logo {
     color: #fff;
     cursor: pointer;
 }
+
+/* login */
+.login {
+    height: 80vh;
+}
+
+@media (max-width:500px) {
+    .login {
+        height: 50vh;
+    }
+}
+
+.login form {
+    width: 100%;
+    max-width: 350px;
+}

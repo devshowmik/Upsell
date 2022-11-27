@@ -26,7 +26,16 @@ const MyProducts = () => {
             })
     }
     const handleAdvertisment = id => {
-        console.log(id)
+        const advertis = {
+            advertis: true,
+        };
+        fetch(`http://localhost:5000/product/advertis/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(advertis)
+        })
     }
     if (isLoading) {
         return <Spinner />
@@ -52,7 +61,7 @@ const MyProducts = () => {
                             <td>{product.title}</td>
                             <td>$ {product.price}</td>
                             <td><span onClick={() => handleAdvertisment(product._id)} className=' btn btn-success'>Advertised</span></td>
-                            <td><Link to={`product/update/${product._id}`} className=' btn btn-warning'>Edit</Link> <span onClick={() => handleDlete(product._id)} className=' btn btn-danger'>Delete</span></td>
+                            <td><Link to={`/dashboard/product/update/${product._id}`} className=' btn btn-warning'>Edit</Link> <span onClick={() => handleDlete(product._id)} className=' btn btn-danger'>Delete</span></td>
                         </tr>)
                     }
 
