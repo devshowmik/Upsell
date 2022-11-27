@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaAngleDown } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Spinner from '../../../Components/Global/Spinner/Spinner';
+import { AuthProvider } from '../../../Context/AuthContext/AuthContext';
 
 const DashMenu = () => {
+    const { loginUser, loading, handleLogOut } = useContext(AuthProvider);
+    const navigate = useNavigate()
+    if (loading) {
+        return <Spinner />
+    }
+    const logoutUser = (event) => {
+        handleLogOut(event)
+            .then(() => {
+                navigate('/')
+            })
+    }
     return (
         <>
             <div className="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
@@ -70,12 +83,12 @@ const DashMenu = () => {
                         </div>
                         <div className="dropdown text-end">
                             <a href="/" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
+                                <img src={loginUser.photoURL} alt="mdo" width="32" height="32" className="rounded-circle" />
                             </a>
                             <ul className="dropdown-menu text-small" >
-                                <li><a className="dropdown-item" href="/">Profile</a></li>
+                                <li><a className="dropdown-item" href="/">{loginUser.displayName}</a></li>
                                 <li><hr className="dropdown-divider" /></li>
-                                <li><a className="dropdown-item" href="/">Sign out</a></li>
+                                <li><a onClick={logoutUser} className="dropdown-item" href="/">Sign out</a></li>
                             </ul>
                         </div>
                     </div>

@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AuthProvider } from '../../Context/AuthContext/AuthContext';
 
 const Register = () => {
+    const { emailRegister, updateUserInfo } = useContext(AuthProvider)
     const imageApiKey = process.env.REACT_APP_image_api_key;
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const navigate = useNavigate()
     // handle register
     const handleEmailRegister = data => {
-        //handle upload profile picture
-        const registerFormData = new FormData();
-        registerFormData.append('photo', data.photo[0]);
-        fetch(`https://api.imgbb.com/1/upload?key=${imageApiKey}`, {
-            method: 'POST',
-            body: registerFormData
-        })
-            .then(res => res.json())
-            .then(imageUrl => {
-                console.log(imageUrl)
+        console.log(data)
+
+        emailRegister(data.email, data.password)
+            .then(res => {
+                //handle upload profile picture
+                const registerFormData = new FormData();
+                registerFormData.append('image', data.image[0]);
+                fetch(`https://api.imgbb.com/1/upload?key=${imageApiKey}`, {
+                    method: 'POST',
+                    body: registerFormData
+                })
+                    .then(res => res.json())
+                    .then(imageUrl => {
+                        const update = {
+                            displayName: data.name,
+                            photoURL: imageUrl?.data?.url
+                        };
+                        updateUserInfo(update);
+                        toast.success('Register Successes');
+                        navigate('/dashboard')
+                    })
+                    .catch(errors => console.log(errors))
             })
     }
     return (
@@ -33,11 +49,11 @@ const Register = () => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="photo" className="form-label">Profile Photo <span className=' text-danger'>{errors?.email?.message}</span></label>
-                        <input {...register('photo', { required: 'required' })} type="file" className="form-control" id="photo" placeholder="name@example.com" />
+                        <input {...register('image', { required: 'required' })} type="file" className="form-control" id="photo" placeholder="name@example.com" />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="loginPassword" className="form-label">Password{watch().password}</label>
-                        <input {...register('password', { required: 'required', pattern: '([0-9]+(:[0-9]+)+).*([A-Za-z0-9]+( [A-Za-z0-9]+)+)' })} type="password" className="form-control" id="loginPassword" placeholder="name@example.com" />
+                        <input {...register('password', { required: 'required' })} type="password" className="form-control" id="loginPassword" placeholder="name@example.com" />
                         {
                             errors.password
                             &&
