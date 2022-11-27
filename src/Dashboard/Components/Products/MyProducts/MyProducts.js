@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Spinner from '../../../../Components/Global/Spinner/Spinner';
-import thumb from '../../../../images/thumb.jpg';
 
 const MyProducts = () => {
-    const { data: products, isLoading } = useQuery({
+    const { data: products, isLoading, refetch } = useQuery({
         queryKey: ['MyProducts'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/products`);
@@ -14,7 +14,16 @@ const MyProducts = () => {
         }
     })
     const handleDlete = id => {
-        console.log(id)
+        fetch(`http://localhost:5000/product/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success('item Deleted Successfully');
+                    refetch();
+                }
+            })
     }
     const handleAdvertisment = id => {
         console.log(id)
