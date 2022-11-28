@@ -21,7 +21,7 @@ const BookingModule = ({ booking }) => {
             paidStatus: false
 
         }
-        fetch(`http://localhost:5000/booking?id=${booking._id}`, {
+        fetch(`https://upsell-server-devshowmik.vercel.app/booking?id=${booking._id}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

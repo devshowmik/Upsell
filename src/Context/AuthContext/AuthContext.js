@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { app } from '../../Functions/FirebaseConfig';
+import { toast } from 'react-toastify';
 export const AuthProvider = createContext();
 const AuthContext = ({ children }) => {
     const Auth = getAuth(app);
@@ -23,6 +24,16 @@ const AuthContext = ({ children }) => {
         setLoading(true);
         return updateProfile(Auth.currentUser, update);
     }
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleLogin = event => {
+        setLoading(true);
+        event.preventDefault();
+        signInWithPopup(Auth, googleProvider)
+            .then(result => {
+                console.log(result)
+                toast('successfully logged in');
+            })
+    }
     // stay login
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(Auth, currentUser => {
@@ -39,7 +50,7 @@ const AuthContext = ({ children }) => {
         return signOut(Auth)
     }
 
-    const authData = { emailRegister, emailLogin, updateUserInfo, handleLogOut, loginUser, loading };
+    const authData = { emailRegister, emailLogin, updateUserInfo, handleLogOut, loginUser, loading, handleGoogleLogin };
     return (
         <AuthProvider.Provider value={authData}>
             {children}

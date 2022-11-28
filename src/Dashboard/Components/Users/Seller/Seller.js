@@ -5,7 +5,7 @@ const Seller = () => {
     const { data: users = [], isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users?role=Seller`);
+            const res = await fetch(`https://upsell-server-devshowmik.vercel.app/users?role=Seller`);
             const data = await res.json();
             return data;
         }

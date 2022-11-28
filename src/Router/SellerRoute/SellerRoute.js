@@ -12,7 +12,7 @@ const SellerRoute = ({ children }) => {
     if (loading || loadingRole) {
         return <Spinner />
     }
-    if (loginUser && userRole === 'Seller') {
+    if (loginUser) {
         return children;
     }
     return <Navigate to='/login' state={{ from: location }} replace></Navigate>

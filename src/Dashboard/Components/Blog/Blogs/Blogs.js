@@ -7,14 +7,14 @@ const Blogs = () => {
     const { data: blogs = [], refetch } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/blogs`);
+            const res = await fetch(`https://upsell-server-devshowmik.vercel.app/blogs`);
             const data = await res.json();
             return data;
         }
     })
 
     const handleBlogDlete = id => {
-        fetch(`http://localhost:5000/blogs/${id}`, {
+        fetch(`https://upsell-server-devshowmik.vercel.app/blogs/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

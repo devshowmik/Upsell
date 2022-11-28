@@ -5,7 +5,7 @@ const useUserRole = email => {
     const [loadingRole, setLoadingRole] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/users/admin/${email}`)
+            fetch(`https://upsell-server-devshowmik.vercel.app/users/admin/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     setUserRole(data.userRole);

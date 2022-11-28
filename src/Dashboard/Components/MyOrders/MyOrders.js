@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext/AuthContext';
 const MyOrders = () => {
     const { loginUser } = useContext(AuthProvider);
     const { data: booking = [] } = useQuery({
         queryKey: ['booking', loginUser],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/booking?email=${loginUser?.email}`);
+            const res = await fetch(`https://upsell-server-devshowmik.vercel.app/booking?email=${loginUser?.email}`);
             const data = await res.json();
             return data;
         }
@@ -36,7 +37,7 @@ const MyOrders = () => {
                             <td>$ {book.price}</td>
                             <td>{book.paidStatus ? <span className=' btn btn-success disabled'>paid</span> : <span className=' btn btn-warning disabled'>Pending</span>}</td>
                             <td>{book.email}</td>
-                            <td><span className=' btn btn-warning' data-bs-toggle="modal" data-bs-target="#PaymentModal">pay</span> <span className=' btn btn-danger'>Delete</span></td>
+                            <td><Link to={`/dashboard/payment/${book._id}`}><span className=' btn btn-warning'>pay</span></Link> <span className=' btn btn-danger'>Delete</span></td>
                         </tr>)
                     }
 

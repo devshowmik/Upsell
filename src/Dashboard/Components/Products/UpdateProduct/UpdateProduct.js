@@ -15,7 +15,7 @@ const UpdateProduct = () => {
             zip: data.zip,
             description: data.description,
         };
-        fetch(`http://localhost:5000/product/${_id}`, {
+        fetch(`https://upsell-server-devshowmik.vercel.app/product/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

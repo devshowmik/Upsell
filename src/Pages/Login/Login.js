@@ -5,7 +5,7 @@ import { AuthProvider } from '../../Context/AuthContext/AuthContext';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { emailLogin } = useContext(AuthProvider);
+    const { emailLogin, handleGoogleLogin } = useContext(AuthProvider);
     const { register, handleSubmit } = useForm();
     const handleEmailLogin = data => {
         console.log(data)
@@ -30,10 +30,10 @@ const Login = () => {
                         <input className='btn btn-success form-control rounded-0' type="submit" value="Login" />
                     </div>
                 </form>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <p className=' text-muted text-capitalize'>New here? <Link to='/register' className=' text-decoration-none' >register</Link> </p>
-                    <input className='btn btn-success form-control rounded-0 text-capitalize' type="submit" value="Login with google" />
-                </div>
+                    <input onClick={handleGoogleLogin} className='btn btn-success form-control rounded-0 text-capitalize' type="submit" value="Login with google" />
+                </div> */}
             </div>
         </div>
     );

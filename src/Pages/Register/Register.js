@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { AuthProvider } from '../../Context/AuthContext/AuthContext';
 
 const Register = () => {
-    const { emailRegister, updateUserInfo } = useContext(AuthProvider)
+    const { emailRegister, updateUserInfo, handleGoogleLogin } = useContext(AuthProvider)
     const imageApiKey = process.env.REACT_APP_image_api_key;
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate()
@@ -37,7 +37,7 @@ const Register = () => {
                             verified: false
                         }
                         // send user information to data base
-                        fetch('http://localhost:5000/users', {
+                        fetch('https://upsell-server-devshowmik.vercel.app/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -78,9 +78,9 @@ const Register = () => {
                             <p className=' text-danger'>{errors?.password?.message}</p>
                         }
                     </div>
-                    <div className="form-check form-switch">
-                        <input {...register('buyer')} className="form-check-input" type="checkbox" role="switch" id="buyerSwitch" />
-                        <label className="form-check-label" for="buyerSwitch">Register as Buyer</label>
+                    <div class="form-check form-switch">
+                        <input {...register('buyer')} class="form-check-input" type="checkbox" role="switch" id="buyerSwitch" />
+                        <label class="form-check-label" for="buyerSwitch">Register as Buyer</label>
                     </div>
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" value="" id="trams" onChange={() => setAgree(!agree)} />
@@ -92,10 +92,10 @@ const Register = () => {
                         <input className='btn btn-success form-control rounded-0' type="submit" value="Register" disabled={!agree} />
                     </div>
                 </form>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <p className=' text-muted text-capitalize'>Already Have an Account? <Link to='/login' className=' text-decoration-none' >login</Link> </p>
-                    <input className='btn btn-success form-control rounded-0 text-capitalize' type="submit" value="Login with google" disabled={!agree} />
-                </div>
+                    <input onClick={handleGoogleLogin} className='btn btn-success form-control rounded-0 text-capitalize' type="submit" value="Login with google" disabled={!agree} />
+                </div> */}
             </div>
         </div>
     );

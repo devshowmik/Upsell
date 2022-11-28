@@ -7,7 +7,7 @@ const AllUsers = () => {
     const { data: users, isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users`);
+            const res = await fetch(`https://upsell-server-devshowmik.vercel.app/users`);
             const data = await res.json();
             return data;
         }
@@ -17,7 +17,7 @@ const AllUsers = () => {
         const admin = {
             userRole: 'Admin'
         }
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://upsell-server-devshowmik.vercel.app/users/admin/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -37,7 +37,7 @@ const AllUsers = () => {
         const Verify = {
             verified: true
         }
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://upsell-server-devshowmik.vercel.app/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -54,7 +54,7 @@ const AllUsers = () => {
     }
     const handleDeleteUser = id => {
 
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://upsell-server-devshowmik.vercel.app/users/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

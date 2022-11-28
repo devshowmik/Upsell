@@ -10,13 +10,13 @@ const MyProducts = () => {
     const { data: products = [], refetch } = useQuery({
         queryKey: ['MyProducts', loginUser],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/products?email=${loginUser?.email}`);
+            const res = await fetch(`https://upsell-server-devshowmik.vercel.app/products?email=${loginUser?.email}`);
             const data = await res.json();
             return data;
         }
     })
     const handleDlete = id => {
-        fetch(`http://localhost:5000/product/${id}`, {
+        fetch(`https://upsell-server-devshowmik.vercel.app/product/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -31,7 +31,7 @@ const MyProducts = () => {
         const advertis = {
             advertis: true,
         };
-        fetch(`http://localhost:5000/product/advertis/${id}`, {
+        fetch(`https://upsell-server-devshowmik.vercel.app/product/advertis/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

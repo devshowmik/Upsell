@@ -24,7 +24,7 @@ const AddBlog = () => {
                     description: data.description,
                 }
 
-                fetch('http://localhost:5000/blogs', {
+                fetch('https://upsell-server-devshowmik.vercel.app/blogs', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

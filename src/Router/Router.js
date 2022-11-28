@@ -3,6 +3,7 @@ import AddBlog from "../Dashboard/Components/Blog/AddBlog/AddBlog";
 import Blogs from "../Dashboard/Components/Blog/Blogs/Blogs";
 import DashWelcome from "../Dashboard/Components/DashWelcome/DashWelcome";
 import MyOrders from "../Dashboard/Components/MyOrders/MyOrders";
+import Payment from "../Dashboard/Components/Payment/Payment";
 import AddProduct from "../Dashboard/Components/Products/AddProduct/AddProduct";
 import MyProducts from "../Dashboard/Components/Products/MyProducts/MyProducts";
 import UpdateProduct from "../Dashboard/Components/Products/UpdateProduct/UpdateProduct";
@@ -45,12 +46,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/products',
-                loader: () => fetch('http://localhost:5000/products'),
+                loader: () => fetch('https://upsell-server-devshowmik.vercel.app/products'),
                 element: <PrivateRoute><Products /></PrivateRoute>
             },
             {
                 path: '/category/:name',
-                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.name}`),
+                loader: ({ params }) => fetch(`https://upsell-server-devshowmik.vercel.app/category/${params.name}`),
                 element: <PrivateRoute><Products /></PrivateRoute>
             },
             {
@@ -79,7 +80,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/product/update/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`),
+                loader: ({ params }) => fetch(`https://upsell-server-devshowmik.vercel.app/product/${params.id}`),
                 element: <UpdateProduct />
             },
             {
@@ -105,6 +106,11 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/add-blog',
                 element: <AdminRoute><AddBlog /></AdminRoute>
+            },
+            {
+                path: '/dashboard/payment/:id',
+                element: <BuyerRoute><Payment /></BuyerRoute>,
+                loader: ({ params }) => fetch(`https://upsell-server-devshowmik.vercel.app/booking/${params.id}`)
             }
 
         ]
