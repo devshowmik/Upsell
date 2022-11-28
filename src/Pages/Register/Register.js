@@ -33,7 +33,8 @@ const Register = () => {
                             displayName: data.name,
                             photoURL: imageUrl?.data?.url,
                             email: data.email,
-                            userRole: data.buyer ? 'Buyer' : 'Seller'
+                            userRole: data.buyer ? 'Buyer' : 'Seller',
+                            verified: false
                         }
                         // send user information to data base
                         fetch('http://localhost:5000/users', {

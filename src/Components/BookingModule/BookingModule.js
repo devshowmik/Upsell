@@ -13,7 +13,7 @@ const BookingModule = ({ booking }) => {
             title: booking.title,
             productId: booking._id,
             price: booking.price,
-            email: booking.email,
+            email: loginUser.email,
             condition: booking.condition,
             sellerLocation: booking.division,
             meetingLocation: data.meetingLocation,
@@ -32,8 +32,6 @@ const BookingModule = ({ booking }) => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success(`${booking.title} booking Success`)
-                } if (!data) {
-                    toast('dfds')
                 }
 
             })
@@ -53,7 +51,7 @@ const BookingModule = ({ booking }) => {
                             <div className="mb-3 row">
                                 <div className="col-sm-8">
                                     <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Email</label>
-                                    <input type="text" disabled className="form-control" id="staticEmail" defaultValue={booking?.email} />
+                                    <input type="text" disabled className="form-control" id="staticEmail" defaultValue={loginUser?.email} />
                                 </div>
                                 <div className="col-sm-4">
                                     <label htmlFor="price" className="col-sm-2 col-form-label">price</label>

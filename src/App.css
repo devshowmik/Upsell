@@ -47,6 +47,10 @@ img.logo {
     }
 }
 
+.modal.show .modal-dialog {
+    max-width: 700px;
+}
+
 .login .form-wrap {
     width: 100%;
     max-width: 350px;

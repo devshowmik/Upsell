@@ -1,23 +1,28 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
+import BlogCard from '../../Components/BlogCard/BlogCard';
+import BlogModal from '../../Components/BlogModal/BlogModal';
 
 const Blog = () => {
+    const [blogDetails, setBlogDetails] = useState(null);
+    const { data: blogs = [] } = useQuery({
+        queryKey: ['blogs'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/blogs`);
+            const data = await res.json();
+            return data;
+        }
+    })
     return (
-        <div className='blog container'>
-            <div class="card mt-3" >
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="..." class="img-fluid rounded-start" alt="..." />
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
+        <>
+            <div className='blog container mb-3'>
+                {
+                    blogs.map(blog => <BlogCard key={blog._id} blog={blog} setBlogDetails={setBlogDetails} />)
+                }
             </div>
-        </div>
+            <BlogModal blogDetails={blogDetails} />
+        </>
+
     );
 };
 

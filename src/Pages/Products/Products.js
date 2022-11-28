@@ -5,7 +5,6 @@ import BookingModule from '../../Components/BookingModule/BookingModule';
 
 const Products = () => {
     const products = useLoaderData();
-
     const [booking, setBooking] = useState(null);
     return (
         <div className=" py-3 text-capitalize">

@@ -12,6 +12,7 @@ const AllUsers = () => {
             return data;
         }
     })
+    //make admin
     const makeAdmin = id => {
         const admin = {
             userRole: 'Admin'
@@ -27,6 +28,26 @@ const AllUsers = () => {
             .then(data => {
                 if (data.modifiedCount > 0) {
                     toast.success('User Role Updated')
+                }
+                refetch()
+            })
+    }
+    // Verify seller
+    const VerifySeller = id => {
+        const Verify = {
+            verified: true
+        }
+        fetch(`http://localhost:5000/users/admin/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(Verify)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('User verified')
                 }
                 refetch()
             })
@@ -57,7 +78,8 @@ const AllUsers = () => {
                         <th scope="col">#</th>
                         <th scope="col">User Image</th>
                         <th scope="col">User Name</th>
-                        <th scope="col">admin role</th>
+                        <th scope="col">User role</th>
+                        <th scope="col">Verify Seller</th>
                         <th scope="col">Make Admin</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -70,6 +92,11 @@ const AllUsers = () => {
                             <td><img src={user?.photoURL} alt="" className='rounded' width='50' /></td>
                             <td>{user?.displayName}</td>
                             <td>{user?.userRole}</td>
+                            <td>
+                                {
+                                    <span className={`btn btn-success ${user?.verified && 'disabled'}`} onClick={() => VerifySeller(user._id)}>Verify</span>
+                                }
+                            </td>
                             <td>
                                 {
                                     <span className={`btn btn-success ${user?.userRole === 'Admin' && 'disabled'}`} onClick={() => makeAdmin(user._id)}>make admin</span>

@@ -1,10 +1,44 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AddBlog = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const imageApiKey = process.env.REACT_APP_image_api_key;
+    const navigate = useNavigate();
     const handleAddBlog = data => {
-        console.log(data)
+        const formData = new FormData();
+        formData.append('image', data.image[0]);
+        fetch(`https://api.imgbb.com/1/upload?key=${imageApiKey}`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imageData => {
+                const productData = {
+                    title: data.title,
+                    price: data.price,
+                    uploadDate: new Date().toISOString().slice(0, 10),
+                    image: imageData.data.url,
+                    description: data.description,
+                }
+
+                fetch('http://localhost:5000/blogs', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.acknowledged) {
+                            toast.success(`blog added successfully`);
+                            navigate('/dashboard/blogs')
+                        }
+                    })
+            })
     }
     return (
         <div className='container-fluid'>
