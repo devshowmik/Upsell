@@ -51,3 +51,10 @@ img.logo {
     width: 100%;
     max-width: 350px;
 }
+
+/* module */
+.modal-content {
+    background-color: #ffffffd2;
+    backdrop-filter: blur(1px);
+
+}

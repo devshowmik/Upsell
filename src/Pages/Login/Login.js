@@ -1,19 +1,17 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { AuthProvider } from '../../Context/AuthContext/AuthContext';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { emailLogin, loginUser } = useContext(AuthProvider);
+    const { emailLogin } = useContext(AuthProvider);
     const { register, handleSubmit } = useForm();
     const handleEmailLogin = data => {
         console.log(data)
         emailLogin(data.email, data.password)
             .then(res => {
                 navigate('/dashboard');
-                toast.success(`${loginUser.displayName} logged in successfully`)
             })
     }
     return (

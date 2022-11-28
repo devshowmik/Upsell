@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import { FaAngleDown } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../../../Components/Global/Spinner/Spinner';
 import { AuthProvider } from '../../../Context/AuthContext/AuthContext';
+import useUserRole from '../../../Hooks/useAdmin';
 
 const DashMenu = () => {
     const { loginUser, loading, handleLogOut } = useContext(AuthProvider);
     const navigate = useNavigate()
+    const [userRole] = useUserRole(loginUser?.email)
     if (loading) {
         return <Spinner />
     }
@@ -25,51 +26,47 @@ const DashMenu = () => {
                             <div className="logo"><a href="index.html">
                                 <img src="images/logo.png" alt="" /><span>Focus</span>
                             </a></div>
-                            <div className="product">
-                                <li className="label">Product</li>
-                                <p className='text-white mb-0 d-flex justify-content-between align-items-center'
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseExample"
-                                    aria-expanded="false"
-                                    aria-controls="collapseExample">
-                                    Product <span><FaAngleDown /></span>
-                                </p>
-                                <li className='ps-3 collapse' id="collapseExample">
-                                    <Link to='/dashboard/products' className="sidebar-sub-toggle">
-                                        All products
-                                    </Link>
-                                    <Link to='/dashboard/add-product' className="sidebar-sub-toggle">
-                                        Add product
-                                    </Link>
+                            {
+                                userRole === 'Seller'
+                                &&
+                                <>
+                                    <div className="product">
+                                        <li className="label">Product</li>
+                                        <li className='ps-3 ' id="">
+                                            <Link to='/dashboard' className="sidebar-sub-toggle">
+                                                All products
+                                            </Link>
+                                            <Link to='/dashboard/add-product' className="sidebar-sub-toggle">
+                                                Add product
+                                            </Link>
+                                        </li>
+                                    </div>
+                                    <div className="message">
+                                        <li className="label">Meeting</li>
+                                        <li className='ps-3 ' >
+                                            <Link to='/dashboard/add-product' className="sidebar-sub-toggle">
+                                                Booked Products
+                                            </Link>
+                                        </li>
+                                    </div>
+
+                                </>
+                            }
+
+                            {
+                                userRole === 'Admin'
+                                &&
+                                <li className='mb-3'>
+                                    <p> <Link to='/dashboard/users' className='text-white text-decoration-none'>Users</Link></p>
                                 </li>
-                            </div>
-                            {/* <div className="users mb-2">
-                                <li className="label">Users</li>
-                                <p className='text-white mb-0 d-flex justify-content-between align-items-center'
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#usercollapse"
-                                    aria-expanded="false"
-                                    aria-controls="usercollapse">
-                                    Users <span><FaAngleDown /></span>
-                                </p>
-                                <li className='ps-3 collapse' id="usercollapse">
-                                    <Link to='/dashboard/users' className="sidebar-sub-toggle">
-                                        All users
-                                    </Link>
-                                    <Link to='/dashboard/users/buyer' className="sidebar-sub-toggle">
-                                        buyers
-                                    </Link>
-                                    <Link to='/dashboard/users/seller' className="sidebar-sub-toggle">
-                                        sellers
-                                    </Link>
+                            }
+                            {
+                                userRole === 'Buyer'
+                                &&
+                                <li className='mb-0'>
+                                    <p> <Link to='/dashboard/my-orders' className='text-white text-decoration-none'>My Orders</Link></p>
                                 </li>
-                            </div> */}
-                            <li className='mb-3'>
-                                <p> <Link to='/dashboard/users' className='text-white text-decoration-none'>Users</Link></p>
-                            </li>
-                            <li className='mb-0'>
-                                <p> <Link to='/dashboard/my-orders' className='text-white text-decoration-none'>My Orders</Link></p>
-                            </li>
+                            }
                         </ul>
                     </div>
                 </div>

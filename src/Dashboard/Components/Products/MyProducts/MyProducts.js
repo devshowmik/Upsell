@@ -8,9 +8,9 @@ import { AuthProvider } from '../../../../Context/AuthContext/AuthContext';
 const MyProducts = () => {
     const { loginUser, loading } = useContext(AuthProvider);
     const { data: products = [], refetch } = useQuery({
-        queryKey: ['MyProducts'],
+        queryKey: ['MyProducts', loginUser],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/products?email=${loginUser.email}`);
+            const res = await fetch(`http://localhost:5000/products?email=${loginUser?.email}`);
             const data = await res.json();
             return data;
         }

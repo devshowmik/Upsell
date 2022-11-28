@@ -4,14 +4,17 @@ import AddProduct from "../Dashboard/Components/Products/AddProduct/AddProduct";
 import MyProducts from "../Dashboard/Components/Products/MyProducts/MyProducts";
 import UpdateProduct from "../Dashboard/Components/Products/UpdateProduct/UpdateProduct";
 import AllUsers from "../Dashboard/Components/Users/AllUsers/AllUsers";
-import Buyer from "../Dashboard/Components/Users/Buyer/Buyer";
-import Seller from "../Dashboard/Components/Users/Seller/Seller";
 import Dashboard from "../Layouts/Dashboard";
 import Main from "../Layouts/Main";
+import NothingPage from "../Pages/404/NothingPage";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Products from "../Pages/Products/Products";
 import Register from "../Pages/Register/Register";
+import AdminRoute from "./AdminRoute/AdminRoute";
+import BuyerRoute from "./BuyerRoute/BuyerRoute";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import SellerRoute from "./SellerRoute/SellerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -33,12 +36,16 @@ export const router = createBrowserRouter([
             {
                 path: '/products',
                 loader: () => fetch('http://localhost:5000/products'),
-                element: <Products />
+                element: <PrivateRoute><Products /></PrivateRoute>
             },
             {
                 path: '/category/:name',
                 loader: ({ params }) => fetch(`http://localhost:5000/category/${params.name}`),
-                element: <Products />
+                element: <PrivateRoute><Products /></PrivateRoute>
+            },
+            {
+                path: '*',
+                element: <NothingPage />
             }
 
         ]
@@ -46,15 +53,15 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <Dashboard />,
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
             {
-                path: '/dashboard/add-product',
-                element: <AddProduct />
+                path: '/dashboard/products',
+                element: <SellerRoute><MyProducts /></SellerRoute>
             },
             {
-                path: '/dashboard/products',
-                element: <MyProducts />
+                path: '/dashboard/add-product',
+                element: <SellerRoute><AddProduct /></SellerRoute>
             },
             {
                 path: '/dashboard/product/update/:id',
@@ -63,19 +70,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/my-orders',
-                element: <MyOrders />
+                element: <BuyerRoute><MyOrders /></BuyerRoute>
             },
             {
                 path: '/dashboard/users',
-                element: <AllUsers />
-            },
-            {
-                path: '/dashboard/users/buyer',
-                element: <Buyer />
-            },
-            {
-                path: '/dashboard/users/seller',
-                element: <Seller />
+                element: <AdminRoute><AllUsers /></AdminRoute>
             }
         ]
     }
