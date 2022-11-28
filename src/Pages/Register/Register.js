@@ -78,9 +78,9 @@ const Register = () => {
                             <p className=' text-danger'>{errors?.password?.message}</p>
                         }
                     </div>
-                    <div class="form-check form-switch">
-                        <input {...register('buyer')} class="form-check-input" type="checkbox" role="switch" id="buyerSwitch" />
-                        <label class="form-check-label" for="buyerSwitch">Register as Buyer</label>
+                    <div className="form-check form-switch">
+                        <input {...register('buyer')} className="form-check-input" type="checkbox" role="switch" id="buyerSwitch" />
+                        <label className="form-check-label" for="buyerSwitch">Register as Buyer</label>
                     </div>
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" value="" id="trams" onChange={() => setAgree(!agree)} />

@@ -36,10 +36,9 @@ const MyOrders = () => {
                             <td>$ {book.price}</td>
                             <td>{book.paidStatus ? <span className=' btn btn-success disabled'>paid</span> : <span className=' btn btn-warning disabled'>Pending</span>}</td>
                             <td>{book.email}</td>
-                            <td><span className=' btn btn-warning'>pay</span> <span className=' btn btn-danger'>Delete</span></td>
+                            <td><span className=' btn btn-warning' data-bs-toggle="modal" data-bs-target="#PaymentModal">pay</span> <span className=' btn btn-danger'>Delete</span></td>
                         </tr>)
                     }
-
 
                 </tbody>
             </table>
