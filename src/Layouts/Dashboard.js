@@ -13,13 +13,6 @@ const Dashboard = () => {
                     <div className="container-fluid">
                         <section id="main-content">
                             <Outlet />
-                            <div className="row">
-                                <div className="col-lg-12">
-                                    <div className="footer">
-                                        <p>2018 © Admin Board. - <a href="/">example.com</a></p>
-                                    </div>
-                                </div>
-                            </div>
                         </section>
                     </div>
                 </div>

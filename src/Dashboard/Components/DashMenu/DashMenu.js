@@ -56,9 +56,32 @@ const DashMenu = () => {
                             {
                                 userRole === 'Admin'
                                 &&
-                                <li className='mb-3'>
-                                    <p> <Link to='/dashboard/users' className='text-white text-decoration-none'>Users</Link></p>
-                                </li>
+                                <>
+
+                                    <div className="user">
+                                        <li className="label">Users</li>
+                                        <li className='ps-3'>
+                                            <Link to='/dashboard/users' className='sidebar-sub-toggle'>All Users</Link>
+                                        </li>
+                                        <li className='ps-3 ' >
+                                            <Link to='/dashboard/buyer' className="sidebar-sub-toggle">Buyer</Link>
+                                        </li>
+                                        <li className='ps-3 ' >
+                                            <Link to='/dashboard/seller' className="sidebar-sub-toggle">Seller</Link>
+                                        </li>
+                                    </div>
+
+                                    <div className="user">
+                                        <li className="label">Blog</li>
+                                        <li className='ps-3'>
+                                            <Link to='/dashboard/blogs' className='sidebar-sub-toggle'>All blogs</Link>
+                                        </li>
+                                        <li className='ps-3 ' >
+                                            <Link to='/dashboard/add-blog' className="sidebar-sub-toggle">Add Blog</Link>
+                                        </li>
+                                    </div>
+                                </>
+
                             }
                             {
                                 userRole === 'Buyer'

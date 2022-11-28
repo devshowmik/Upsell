@@ -1,12 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
+import AddBlog from "../Dashboard/Components/Blog/AddBlog/AddBlog";
+import DashWelcome from "../Dashboard/Components/DashWelcome/DashWelcome";
 import MyOrders from "../Dashboard/Components/MyOrders/MyOrders";
 import AddProduct from "../Dashboard/Components/Products/AddProduct/AddProduct";
 import MyProducts from "../Dashboard/Components/Products/MyProducts/MyProducts";
 import UpdateProduct from "../Dashboard/Components/Products/UpdateProduct/UpdateProduct";
 import AllUsers from "../Dashboard/Components/Users/AllUsers/AllUsers";
+import Buyer from "../Dashboard/Components/Users/Buyer/Buyer";
+import Seller from "../Dashboard/Components/Users/Seller/Seller";
 import Dashboard from "../Layouts/Dashboard";
 import Main from "../Layouts/Main";
 import NothingPage from "../Pages/404/NothingPage";
+import Blog from "../Pages/Blog/Blog";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Products from "../Pages/Products/Products";
@@ -24,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+            },
+            {
+                path: '/blogs',
+                element: <Blog />
             },
             {
                 path: '/login',
@@ -56,6 +65,10 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
             {
+                path: '/dashboard',
+                element: <DashWelcome />
+            },
+            {
                 path: '/dashboard/products',
                 element: <SellerRoute><MyProducts /></SellerRoute>
             },
@@ -75,7 +88,24 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/users',
                 element: <AdminRoute><AllUsers /></AdminRoute>
+            },
+            {
+                path: '/dashboard/buyer',
+                element: <Buyer />
+            },
+            {
+                path: '/dashboard/seller',
+                element: <AdminRoute><Seller /></AdminRoute>
+            },
+            {
+                path: '/dashboard/blogs',
+                element: <AdminRoute><Seller /></AdminRoute>
+            },
+            {
+                path: '/dashboard/add-blog',
+                element: <AdminRoute><AddBlog /></AdminRoute>
             }
+
         ]
     }
 

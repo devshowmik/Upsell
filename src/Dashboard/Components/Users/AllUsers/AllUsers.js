@@ -31,6 +31,20 @@ const AllUsers = () => {
                 refetch()
             })
     }
+    const handleDeleteUser = id => {
+
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.deleteCount > 0) {
+                    toast.success('User Role deleted')
+                }
+                refetch()
+            })
+    }
     if (isLoading) {
         return <Spinner />
     }
@@ -61,7 +75,7 @@ const AllUsers = () => {
                                     <span className={`btn btn-success ${user?.userRole === 'Admin' && 'disabled'}`} onClick={() => makeAdmin(user._id)}>make admin</span>
                                 }
                             </td>
-                            <td><span className={`btn btn-danger ${users.length === 1 && 'disabled'}`}>Delete</span></td>
+                            <td><span className={`btn btn-danger ${users.length === 1 && 'disabled'}`} onClick={() => handleDeleteUser(user._id)}>Delete</span></td>
                         </tr>)
                     }
                 </tbody>

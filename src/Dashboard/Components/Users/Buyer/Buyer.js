@@ -3,10 +3,10 @@ import React from 'react';
 import Spinner from '../../../../Components/Global/Spinner/Spinner';
 
 const Buyer = () => {
-    const { data: users, isLoading } = useQuery({
-        queryKey: ['users'],
+    const { data: users = [], isLoading } = useQuery({
+        queryKey: ['user'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users/buyer}`);
+            const res = await fetch(`http://localhost:5000/users?role=Buyer`);
             const data = await res.json();
             return data;
         }
